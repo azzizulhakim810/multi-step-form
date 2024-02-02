@@ -51,7 +51,7 @@ const FirstPhase = ({ nextPhase, handleInput, userInfo }) => {
         <Link to={`/home/secondPhase`}>
           <button
             onClick={nextPhase}
-            className="btn w-full bg-[#fff] border-0 text-black uppercase hover:bg-blue-900 hover:text-white"
+            className="btn w-full bg-[#fff] border-0 text-black uppercase hover:bg-black hover:text-white"
           >
             Next
           </button>
