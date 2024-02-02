@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.customBG {
+  background-color: rgb(200, 200, 2 / 50%);
+  box-shadow: 0 0 5px rgb(0 0 0 / 40%);
+  backdrop-filter: blur(10px);
+}
