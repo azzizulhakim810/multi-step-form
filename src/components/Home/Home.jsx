@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import FinalPhase from "../FinalPhase/FinalPhase";
 import FirstPhase from "../FirstPhase/FirstPhase";
+import Modal from "../Modal/Modal";
 import SecondPhase from "../SecondPhase/SecondPhase";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
   const phaseNo = [1, 2, 3];
   const [formPhase, setFormPhase] = useState(phaseNo[0]);
-  // const [phaseHighlighter, setPhaseHighlighter] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -27,31 +28,35 @@ const Home = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(userInfo);
+  // console.log(userInfo);
   // Previous Phase
   const prevPhase = () => {
     setFormPhase(formPhase - 1);
   };
   // Next Phase
   const nextPhase = () => {
-    if (formPhase === 1) {
+    if (formPhase === 1 && userInfo.name && userInfo.email && userInfo.phone) {
       setFormPhase(formPhase + 1);
-    } else if (formPhase === 2) {
+    } else if (
+      formPhase === 2 &&
+      userInfo.cardNumber &&
+      userInfo.exp &&
+      userInfo.cvc
+    ) {
       setFormPhase(formPhase + 1);
-    }
-    /* else {
+    } else {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Please fill those up!",
       });
-    } */
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/home/firstPhase", { replace: true });
-    console.log(userInfo);
+    // console.log(userInfo);
+    document.getElementById("my_modal_5").showModal();
   };
   return (
     <>
@@ -68,7 +73,16 @@ const Home = () => {
         </div>
 
         <div className="hero-content customBG text-center text-neutral-content">
-          <div className="card w-96 bg-transparent">
+          <Modal
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+            setFormPhase={setFormPhase}
+            formPhase={formPhase}
+          />
+          <div className="card w-[50vw] bg-transparent pt-5">
+            <h1 className="text-white text-5xl font-bold uppercase pb-3 mb-5 ">
+              Complete the servey
+            </h1>
             {/* Phase Counter  */}
             <ul className="steps">
               {phaseNo.map((n, i) => (
